@@ -69,7 +69,7 @@ class Grades:
             incompleted = self.prereqs[q].difference(completedQuestions)
             if len(incompleted) > 0:
                 prereq = incompleted.pop()
-                print("""*** NOTE: Make sure to complete Question %s before working on Question %s,
+                print(r"""*** NOTE: Make sure to complete Question %s before working on Question %s,
 *** because Question %s builds upon your answer for Question %s.
 """ % (prereq, q, q, prereq))
                 continue
@@ -104,7 +104,7 @@ class Grades:
         print('Total: %d/%d' %
               (self.points.totalCount(), sum(self.maxes.values())))
         if bonusPic and self.points.totalCount() == 25:
-            print("""
+            print(r"""
 
                      ALL HAIL GRANDPAC.
               LONG LIVE THE GHOSTBUSTING KING.
@@ -136,7 +136,7 @@ class Grades:
                     @@@@@@@@@@@@@@@@@@
 
 """)
-        print("""
+        print(r"""
 Your grades are NOT yet registered.  To register your grades, make sure
 to follow your instructor's guidelines to receive credit on your project.
 """)
