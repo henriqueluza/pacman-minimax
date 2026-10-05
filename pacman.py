@@ -546,6 +546,8 @@ def readCommand(argv):
                       help='A recorded game file (pickle) to replay', default=None)
     parser.add_option('-a', '--agentArgs', dest='agentArgs',
                       help='Comma separated values sent to agent. e.g. "opt1=val1,opt2,opt3=val3"')
+    parser.add_option('--depth', dest='depth', type='int', default=None,
+                      help='Minimax search depth in complete rounds (at least 1)')
     parser.add_option('-x', '--numTraining', dest='numTraining', type='int',
                       help=default('How many episodes are training (suppresses output)'), default=0)
     parser.add_option('--frameTime', dest='frameTime', type='float',
@@ -574,6 +576,12 @@ def readCommand(argv):
         options.textGraphics or options.quietGraphics)
     pacmanType = loadAgent(options.pacman, noKeyboard)
     agentOpts = parseAgentArgs(options.agentArgs)
+    if options.depth is not None:
+        if options.depth < 1:
+            parser.error('--depth deve ser maior ou igual a 1')
+        if 'depth' in agentOpts and str(options.depth) != agentOpts['depth']:
+            parser.error('use a mesma profundidade em --depth e --agentArgs')
+        agentOpts['depth'] = str(options.depth)
     if options.numTraining > 0:
         args['numTraining'] = options.numTraining
         if 'numTraining' not in agentOpts:
